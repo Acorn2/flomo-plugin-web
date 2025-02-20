@@ -1,0 +1,165 @@
+---
+import { Picture } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Link from "@components/ui/link.astro";
+import mainImage from "@assets/screenshots/main.png";
+import settingImage from "@assets/screenshots/setting.png";
+import aiSummaryImage from "@assets/screenshots/ai-summary.png";
+import statisticsImage from "@assets/screenshots/statistics.png";
+
+const screenshots = [
+  {
+    src: mainImage,
+    alt: "主界面"
+  },
+  {
+    src: aiSummaryImage,
+    alt: "AI 智能总结"
+  },
+  {
+    src: statisticsImage,
+    alt: "数据统计"
+  }
+];
+
+const content = {
+  zh: {
+    title: "智能网页内容收藏助手",
+    description: "SnapFlomo 是一款强大的 Chrome 扩展,支持 AI 智能总结、多主题切换、侧边栏模式等功能,让您轻松管理网页收藏。内置智谱 AI 和 Deepseek 双引擎,一键生成结构化摘要。",
+    install: "立即安装",
+    github: "GitHub"
+  },
+  en: {
+    title: "Save Web Content to Flomo Elegantly",
+    description: "SnapFlomo is a clean and elegant Chrome extension that helps you quickly save web content to Flomo. Featuring AI summaries, multiple themes, and sidebar mode.",
+    install: "Install Now",
+    github: "GitHub"
+  }
+};
+
+const { lang = 'zh' } = Astro.props;
+const t = content[lang];
+---
+
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<div class="pt-32 pb-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center">
+      <h1 class="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+        {t.title}
+      </h1>
+      <p class="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+        {t.description}
+      </p>
+      <div class="mt-10 flex items-center justify-center gap-x-6">
+        <Link href="https://chromewebstore.google.com/detail/snapflomo/pemafdjebhjgobpommlhakhohbabghah?authuser=0&hl=zh-CN" size="lg" class="rounded-full inline-flex items-center">
+          <Icon name="bx:bxs-download" class="w-5 h-5 mr-2" />
+          {t.install}
+        </Link>
+        <Link
+          size="lg"
+          style="outline"
+          href="https://github.com/Acorn2/flomo-plugin"
+          class="rounded-full inline-flex items-center"
+          target="_blank">
+          <Icon name="bx:bxl-github" class="w-5 h-5 mr-2" />
+          {t.github}
+        </Link>
+      </div>
+    </div>
+    
+    <div class="mt-16 relative">
+      <div 
+        x-data="carousel"
+        @mouseenter="stopAutoplay"
+        @mouseleave="startAutoplay"
+        class="overflow-hidden max-w-[1280px] h-[600px] mx-auto">
+        <div 
+          class="flex transition-transform duration-300 ease-in-out" 
+          :style="`transform: translateX(-${activeSlide * 100}%)`"
+          x-ref="slider">
+          {
+            screenshots.map((screenshot) => (
+              <div class="w-full flex-shrink-0 px-4 flex items-center justify-center">
+                <Picture
+                  src={screenshot.src}
+                  alt={`${screenshot.alt} - SnapFlomo ${lang === 'zh' ? '截图' : 'Screenshot'}`}
+                  class="rounded-lg shadow-2xl object-contain w-full h-full max-h-[600px]"
+                  widths={[768, 1024, 1280]}
+                  sizes="(min-width: 1280px) 1280px, 100vw"
+                  loading="eager"
+                  format="avif"
+                />
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- 导航按钮 -->
+        <button
+          @click="prev"
+          class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white">
+          <Icon name="bx:bx-chevron-left" class="w-6 h-6" />
+        </button>
+        <button
+          @click="next"
+          class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white">
+          <Icon name="bx:bx-chevron-right" class="w-6 h-6" />
+        </button>
+
+        <!-- 指示器 -->
+        <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
+          {
+            screenshots.map((_, index) => (
+              <button
+                @click="goToSlide(index)"
+                class="w-2 h-2 rounded-full transition-colors duration-200"
+                :class="activeSlide === index ? 'bg-blue-600' : 'bg-gray-300'"
+              >
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    console.log('Alpine.js initialized');
+    Alpine.data('carousel', () => ({
+      activeSlide: 0,
+      totalSlides: 3,
+      autoplayInterval: null,
+      
+      init() {
+        console.log('Carousel initialized');
+        this.startAutoplay();
+      },
+      
+      startAutoplay() {
+        this.autoplayInterval = setInterval(() => {
+          this.next();
+        }, 5000);
+      },
+      
+      stopAutoplay() {
+        clearInterval(this.autoplayInterval);
+      },
+
+      next() {
+        this.activeSlide = (this.activeSlide + 1) % this.totalSlides;
+      },
+      
+      prev() {
+        this.activeSlide = this.activeSlide === 0 ? this.totalSlides - 1 : this.activeSlide - 1;
+      },
+      
+      goToSlide(index) {
+        this.activeSlide = index;
+      }
+    }));
+  });
+</script>

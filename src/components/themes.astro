@@ -1,0 +1,82 @@
+---
+import { Picture } from "astro:assets";
+
+const themes = {
+  zh: [
+    {
+      name: "默认主题",
+      image: "/screenshots/theme-default.png",
+      description: "简洁优雅的设计风格"
+    },
+    {
+      name: "圣诞主题",
+      image: "/screenshots/theme-christmas.png", 
+      description: "充满节日氛围的温暖设计"
+    },
+    {
+      name: "新年主题",
+      image: "/screenshots/theme-newyear.png",
+      description: "喜庆祥和的节日氛围"
+    },
+    {
+      name: "蛇年主题",
+      image: "/screenshots/theme-snake.png",
+      description: "生动有趣的生肖元素"
+    }
+  ],
+  en: [
+    {
+      name: "Default Theme",
+      image: "/screenshots/theme-default.png",
+      description: "Clean and elegant design style"
+    },
+    {
+      name: "Christmas Theme",
+      image: "/screenshots/theme-christmas.png",
+      description: "Warm design with festive atmosphere"
+    },
+    {
+      name: "New Year Theme",
+      image: "/screenshots/theme-newyear.png",
+      description: "Festive and harmonious atmosphere"
+    },
+    {
+      name: "Snake Year Theme",
+      image: "/screenshots/theme-snake.png",
+      description: "Lively and interesting zodiac elements"
+    }
+  ]
+};
+
+const { lang = 'zh' } = Astro.props;
+const currentThemes = themes[lang];
+---
+
+<div class="mt-24">
+  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-center">
+    {lang === 'zh' ? '丰富多样的主题风格' : 'Rich Theme Styles'}
+  </h2>
+  
+  <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mt-12">
+    {
+      currentThemes.map((theme) => (
+        <div class="relative group">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg blur opacity-0 group-hover:opacity-20 transition-opacity"></div>
+          <div class="relative bg-white rounded-lg p-4 border">
+            <Picture
+              src={theme.image}
+              alt={theme.name}
+              width={300}
+              height={300}
+              widths={[300]}
+              sizes="300px"
+              class="rounded-lg shadow-sm"
+            />
+            <h3 class="font-semibold text-lg mt-4">{theme.name}</h3>
+            <p class="text-slate-600 text-sm mt-2">{theme.description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div> 

@@ -1,0 +1,5 @@
+name = "snapflomo"
+compatibility_date = "2025-02-01"
+
+[site]
+bucket = "./dist"

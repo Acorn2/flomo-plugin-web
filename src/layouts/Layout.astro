@@ -1,0 +1,53 @@
+---
+import { SEO } from "astro-seo";
+import Footer from "@components/footer.astro";
+import Navbar from "@components/navbar/navbar.astro";
+import type { Language } from "../utils/languageContext";
+import "@fontsource-variable/inter/index.css";
+import '@fontsource-variable/bricolage-grotesque';
+
+export interface Props {
+  title: string;
+  lang: Language;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const resolvedImageWithDomain = new URL("/opengraph.jpg", Astro.site).toString();
+const { title, lang } = Astro.props;
+
+const makeTitle = title
+  ? title + " | " + "SnapFlomo"
+  : "SnapFlomo - " + (lang === 'zh' ? "优雅的网页内容保存工具" : "Elegant Web Content Saver");
+---
+
+<!DOCTYPE html>
+<html lang={lang === 'zh' ? "zh-CN" : "en"}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={makeTitle}
+      description={lang === 'zh' 
+        ? "SnapFlomo 是一个优雅的 Chrome 扩展,用于快速保存网页内容到 Flomo,支持 AI 智能总结、多主题切换和侧边栏模式。"
+        : "SnapFlomo is an elegant Chrome extension for saving web content to Flomo, featuring AI summaries, multiple themes, and sidebar mode."}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: makeTitle,
+          image: resolvedImageWithDomain,
+        }
+      }}
+    />
+  </head>
+  <body>
+    <Navbar lang={lang} />
+    <slot />
+    <Footer lang={lang} />
+    <!-- 删除或注释掉开发工具相关的样式 -->
+  </body>
+</html>

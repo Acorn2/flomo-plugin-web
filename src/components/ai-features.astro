@@ -1,0 +1,101 @@
+---
+import { Icon } from "astro-icon/components";
+import { Picture } from "astro:assets";
+
+const aiFeatures = {
+  zh: [
+    {
+      title: "智能摘要",
+      description: "自动提取文章重点,生成简洁摘要",
+      icon: "bx:bxs-brain"
+    },
+    {
+      title: "双引擎支持",
+      description: "支持智谱 AI 和 Deepseek,可自由切换",
+      icon: "bx:bxs-chip"
+    },
+    {
+      title: "标签推荐",
+      description: "智能分析内容,推荐相关标签",
+      icon: "bx:bxs-tag-alt"
+    }
+  ],
+  en: [
+    {
+      title: "Smart Summary",
+      description: "Automatically extract article highlights and generate concise summaries",
+      icon: "bx:bxs-brain"
+    },
+    {
+      title: "Dual Engine Support",
+      description: "Support for both Zhipu AI and Deepseek, switch freely",
+      icon: "bx:bxs-chip"
+    },
+    {
+      title: "Tag Recommendations",
+      description: "Intelligent content analysis and tag suggestions",
+      icon: "bx:bxs-tag-alt"
+    }
+  ]
+};
+
+const { lang = 'zh' } = Astro.props;
+const currentFeatures = aiFeatures[lang];
+
+const content = {
+  zh: {
+    title: "AI 智能助手",
+    configTitle: "AI 配置说明",
+    supportText: "支持两种 AI 服务:",
+    configNote: "在扩展设置页面配置对应服务的 API Key 即可使用。"
+  },
+  en: {
+    title: "AI Smart Assistant",
+    configTitle: "AI Configuration",
+    supportText: "Supports two AI services:",
+    configNote: "Configure the API Key for the corresponding service in the extension settings page."
+  }
+};
+
+const t = content[lang];
+---
+
+<div class="mt-24">
+  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-center">
+    {t.title}
+  </h2>
+  
+  <div class="grid sm:grid-cols-3 gap-8 mt-12">
+    {
+      currentFeatures.map((feature) => (
+        <div class="relative">
+          <div class="flex items-center justify-center">
+            <div class="bg-black rounded-lg p-4">
+              <Icon class="text-white w-8 h-8" name={feature.icon} />
+            </div>
+          </div>
+          <h3 class="font-semibold text-xl text-center mt-4">
+            {feature.title}
+          </h3>
+          <p class="text-slate-600 text-center mt-2">
+            {feature.description}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="bg-slate-100 rounded-lg p-8 mt-12">
+    <div class="max-w-3xl mx-auto">
+      <h3 class="font-semibold text-xl mb-4">{t.configTitle}</h3>
+      <div class="space-y-4">
+        <p>{t.supportText}</p>
+        <ul class="list-disc list-inside space-y-2">
+          <li>Zhipu AI ({lang === 'zh' ? '默认' : 'default'})</li>
+          <li>Deepseek</li>
+        </ul>
+        <p>{t.configNote}</p>
+      </div>
+    </div>
+  </div>
+</div>

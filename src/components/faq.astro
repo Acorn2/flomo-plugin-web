@@ -1,0 +1,73 @@
+---
+const faqs = {
+  zh: [
+    {
+      question: "如何使用AI智能总结功能？",
+      answer: "本插件支持智谱AI（默认）和Deepseek两种AI服务。您需要在设置页面配置对应服务的API Key。配置完成后，系统可以自动提取网页核心内容并生成结构化摘要。"
+    },
+    {
+      question: "如何配置Flomo同步？",
+      answer: "首先需要登录Flomo账号（需要会员），进入个人账号 -> 扩展中心 & API，获取专属Webhook URL，然后在插件设置中填入该URL即可完成配置。"
+    },
+    {
+      question: "插件支持哪些快捷键操作？",
+      answer: "默认快捷键在Mac上是Command + Shift + F，在Windows上是Alt + Shift + F。同时支持自定义快捷键设置，还支持文本选择的快捷操作。"
+    },
+    {
+      question: "插件支持哪些主题？",
+      answer: "插件提供多套主题：简约清新的默认主题、节日氛围的圣诞主题、喜庆温暖的新年主题以及生肖特色的蛇年主题。"
+    },
+    {
+      question: "如何查看数据统计？",
+      answer: "插件支持查看最近3个月的数据统计，包括月度数据对比、日均保存统计，并提供分类饼图、趋势柱状图等互动式图表展示。您还可以查看最近保存列表，支持快速预览和原文跳转。"
+    }
+  ],
+  en: [
+    {
+      question: "How to use AI smart summary feature?",
+      answer: "The extension supports both Zhipu AI (default) and Deepseek. You need to configure the API Key in the settings page. Once configured, the system can automatically extract core content and generate structured summaries."
+    },
+    {
+      question: "How to configure Flomo synchronization?",
+      answer: "First login to your Flomo account (membership required), go to Profile -> Extensions & API, get your unique Webhook URL, then enter it in the extension settings."
+    },
+    {
+      question: "What keyboard shortcuts are supported?",
+      answer: "The default shortcut is Command + Shift + F on Mac and Alt + Shift + F on Windows. Custom shortcuts are also supported, along with text selection shortcuts."
+    },
+    {
+      question: "What themes are available?",
+      answer: "The extension offers multiple themes: a clean default theme, Christmas theme with festive atmosphere, New Year theme with warm celebrations, and Snake Year theme with zodiac characteristics."
+    },
+    {
+      question: "How to view data statistics?",
+      answer: "The extension supports viewing data statistics for the last 3 months, including monthly comparisons and daily saving statistics, with interactive charts like category pie charts and trend bar graphs. You can also view recently saved items with quick preview and original link access."
+    }
+  ]
+};
+
+const { lang = 'zh' } = Astro.props;
+const currentFaqs = faqs[lang];
+---
+
+<div class="py-20 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-12">
+      {lang === 'zh' ? '常见问题' : 'FAQ'}
+    </h2>
+
+    <div class="space-y-6">
+      {
+        currentFaqs.map((faq, index) => (
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <h3 class="text-xl font-semibold mb-3 flex items-center">
+              <span class="text-blue-600 mr-3">{index + 1}.</span>
+              {faq.question}
+            </h3>
+            <p class="text-gray-600 ml-7">{faq.answer}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div> 

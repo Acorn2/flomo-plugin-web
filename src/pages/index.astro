@@ -1,0 +1,23 @@
+---
+import LanguageLayout from "@layouts/LanguageLayout.astro";
+import Container from "@components/container.astro";
+import Hero from "@components/hero.astro";
+import Features from "@components/features.astro";
+import Themes from "@components/themes.astro";
+import AiFeatures from "@components/ai-features.astro";
+import Installation from "@components/installation.astro";
+import FAQ from "@components/faq.astro";
+
+const lang = 'zh';
+---
+
+<LanguageLayout lang={lang} title="SnapFlomo - 优雅的网页内容保存工具">
+  <Container>
+    <Hero lang={lang} />
+    <Features lang={lang} />
+    <Themes lang={lang} />
+    <AiFeatures lang={lang} />
+    <Installation lang={lang} />
+    <FAQ lang={lang} />
+  </Container>
+</LanguageLayout> 

@@ -1,0 +1,87 @@
+---
+import { Icon } from "astro-icon/components";
+
+const features = {
+  zh: [
+    {
+      title: "智能采集",
+      description: "自动获取页面信息,支持手动输入摘要(5000字)和个人感想(1000字),选中文本快速填充。",
+      icon: "bx:bxs-note"
+    },
+    {
+      title: "AI 助手", 
+      description: "支持智谱 AI 和 Deepseek 双引擎,自动提取核心内容,生成结构化摘要。",
+      icon: "bx:bxs-brain"
+    },
+    {
+      title: "主题系统",
+      description: "内置默认、圣诞、新年、蛇年等多个主题,随心切换界面风格。", 
+      icon: "bx:bxs-palette"
+    },
+    {
+      title: "数据统计",
+      description: "支持3个月数据统计,饼图/柱状图可视化,历史记录管理。",
+      icon: "bx:bxs-chart"
+    },
+    {
+      title: "安全可靠",
+      description: "API Key 安全存储,最小数据采集,本地优先存储,支持数据清理。",
+      icon: "bx:bxs-shield"
+    }
+  ],
+  en: [
+    {
+      title: "Content Collection",
+      description: "Automatically capture page title and URL, support manual summary and personal notes, smart word count.",
+      icon: "bx:bxs-note",
+      color: "bg-blue-100"
+    },
+    {
+      title: "AI Summary",
+      description: "Support for both Zhipu AI and Deepseek engines, one-click generation of article summaries.",
+      icon: "bx:bxs-brain",
+      color: "bg-green-100"
+    },
+    {
+      title: "Dual Mode Support",
+      description: "Support for both pop-up and side bar modes, suitable for different usage scenarios.",
+      icon: "bx:bxs-window-alt"
+    },
+    {
+      title: "Shortcut Key Support",
+      description: "Support for shortcut keys, customizable settings, and improved usage efficiency.",
+      icon: "bx:bxs-keyboard"
+    },
+    {
+      title: "Tag Management",
+      description: "Support for default tag settings, intelligent extraction of website tags, and flexible content management.",
+      icon: "bx:bxs-tag"
+    }
+  ]
+};
+
+const { lang = 'zh' } = Astro.props;
+const currentFeatures = features[lang];
+---
+
+<div id="features" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-12">
+      {lang === 'zh' ? '产品特点' : 'Features'}
+    </h2>
+    
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        currentFeatures.map((item) => (
+          <div class="p-6 rounded-xl bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class={`w-12 h-12 rounded-lg ${item.color} flex items-center justify-center mb-4`}>
+              <Icon class="w-6 h-6 text-gray-700" name={item.icon} />
+            </div>
+            <h3 class="text-xl font-semibold mb-3">{item.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

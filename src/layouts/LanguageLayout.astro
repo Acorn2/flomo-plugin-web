@@ -1,0 +1,24 @@
+---
+import Layout from "./Layout.astro";
+import type { Language } from "../utils/languageContext";
+import { getLanguageConfig } from "../utils/languageContext";
+
+export interface Props {
+  lang: Language;
+  title: string;
+}
+
+const { lang } = Astro.props;
+const currentTranslation = getLanguageConfig(lang);
+---
+
+<Layout {...Astro.props}>
+  <slot />
+</Layout>
+
+<script define:vars={{ lang, currentTranslation }}>
+// 处理语言切换
+document.querySelector('.lang-switch')?.addEventListener('click', () => {
+  window.location.href = currentTranslation.switchPath;
+});
+</script> 

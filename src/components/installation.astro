@@ -1,0 +1,91 @@
+---
+const content = {
+  zh: {
+    title: "快速开始",
+    installation: {
+      title: "安装步骤",
+      steps: [
+        "下载源代码",
+        "打开 Chrome 扩展程序页面",
+        '开启"开发者模式"',
+        '点击"加载已解压的扩展程序"',
+        "选择项目文件夹"
+      ]
+    },
+    configuration: {
+      title: "配置说明",
+      subtitle: "Flomo 配置:",
+      steps: [
+        "登录 Flomo 账号",
+        "进入扩展中心 & API",
+        "获取 Webhook URL",
+        "填入扩展设置"
+      ]
+    }
+  },
+  en: {
+    title: "Quick Start",
+    installation: {
+      title: "Installation Steps",
+      steps: [
+        "Download source code",
+        "Open Chrome extensions page",
+        'Enable "Developer mode"',
+        'Click "Load unpacked"',
+        "Select project folder"
+      ]
+    },
+    configuration: {
+      title: "Configuration",
+      subtitle: "Flomo Setup:",
+      steps: [
+        "Login to Flomo",
+        "Go to Extensions & API",
+        "Get Webhook URL",
+        "Enter in extension settings"
+      ]
+    }
+  }
+};
+
+const { lang = 'zh' } = Astro.props;
+const t = content[lang];
+---
+
+<div id="installation" class="py-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-16">
+      {t.title}
+    </h2>
+    <div class="grid md:grid-cols-2 gap-12">
+      <div class="bg-white rounded-xl p-8 shadow-lg">
+        <h3 class="text-2xl font-semibold mb-6">{t.installation.title}</h3>
+        <ol class="space-y-6">
+          {t.installation.steps.map((step, index) => (
+            <li class="flex items-center gap-4">
+              <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-semibold">
+                {index + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+      
+      <div class="bg-white rounded-xl p-8 shadow-lg">
+        <h3 class="text-2xl font-semibold mb-6">{t.configuration.title}</h3>
+        <div class="space-y-6">
+          <p class="font-medium">{t.configuration.subtitle}</p>
+          <ul class="space-y-4">
+            {t.configuration.steps.map((item) => (
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

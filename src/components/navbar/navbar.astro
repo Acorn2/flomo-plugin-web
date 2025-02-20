@@ -1,0 +1,70 @@
+---
+import { Icon } from "astro-icon/components";
+import Link from "@components/ui/link.astro";
+import type { Language } from "../../utils/languageContext";
+import { getLanguageConfig } from "../../utils/languageContext";
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const currentTranslation = getLanguageConfig(lang);
+
+const menuItems = {
+  zh: [
+    {
+      title: "功能特点",
+      path: "#features",
+    },
+    {
+      title: "使用教程",
+      path: "#installation",
+    },
+    {
+      title: "反馈建议",
+      path: "#feedback",
+    }
+  ],
+  en: [
+    {
+      title: "Features",
+      path: "#features",
+    },
+    {
+      title: "Tutorial",
+      path: "#tutorial",
+    },
+    {
+      title: "Feedback",
+      path: "#feedback",
+    }
+  ]
+};
+
+const currentMenuItems = menuItems[lang];
+---
+
+<header class="fixed w-full top-0 z-50 bg-white border-b">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex justify-between items-center py-4">
+      <div class="flex items-center">
+        <img src="/logo.png" alt="SnapFlomo Logo" class="h-8 w-8 mr-2" />
+        <span class="text-xl font-bold">Snap<span class="text-gray-500">Flomo</span></span>
+      </div>
+      
+      <nav class="hidden md:flex items-center space-x-8">
+        {currentMenuItems.map((item) => (
+          <a href={item.path} class="text-gray-600 hover:text-gray-900">
+            {item.title}
+          </a>
+        ))}
+        <a 
+          href={currentTranslation.switchPath}
+          class="lang-switch text-gray-600 hover:text-gray-900 px-3 py-1 rounded-md border border-gray-300">
+          {currentTranslation.switchText}
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>
